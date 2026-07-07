@@ -16,7 +16,6 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Agregamos los 3 roles solicitados
         cmbRol.getItems().addAll("Administrador", "Estándar", "Invitado");
     }
 
@@ -27,16 +26,15 @@ public class LoginController {
         String passStr = txtPassword.getText();
         String rolStr = cmbRol.getValue();
 
-        // Validación de campos vacíos
         if (userStr.isEmpty() || passStr.isEmpty() || rolStr == null) {
             mostrarAlerta("Error", "Faltan datos obligatorios para el registro", Alert.AlertType.ERROR);
             return;
         }
 
-        // 1. Generar HASH de la contraseña
+
         String passwordHasheada = Seguridad.generarHash(passStr);
 
-        // 2. Crear objeto y guardar
+
         Usuario nuevo = new Usuario(userStr, mailStr, passwordHasheada, rolStr);
 
         if (usuarioDAO.registrar(nuevo)) {
@@ -49,31 +47,40 @@ public class LoginController {
 
     @FXML
     private void login() {
-        String userStr = txtUsuario.getText();
-        String passStr = txtPassword.getText();
+        String userStr = txtUsuario.getText().trim();
+        String passStr = txtPassword.getText().trim();
+        String rolSeleccionado = cmbRol.getValue();
 
-        if (userStr.isEmpty() || passStr.isEmpty()) {
-            mostrarAlerta("Login", "Por favor ingrese usuario y contraseña", Alert.AlertType.WARNING);
+
+        if (userStr.isEmpty() || passStr.isEmpty() || rolSeleccionado == null) {
+            mostrarAlerta("Campos Incompletos", "Por favor, ingrese usuario, contraseña y seleccione su Rol.", Alert.AlertType.WARNING);
             return;
         }
 
-        // 1. Buscar el usuario en la BD por nombre
+
         Usuario usuarioBD = usuarioDAO.buscarPorNombre(userStr);
 
         if (usuarioBD != null) {
-            // 2. Comparar la clave ingresada (plana) contra el Hash guardado
+
             if (Seguridad.validar(passStr, usuarioBD.getPassword())) {
 
-                // Mostrar datos en la interfaz
-                lbId.setText("ID: " + usuarioBD.getId_usuario());
 
-                mostrarAlerta("Login exitoso", "¡Acceso Correcto! Bienvenido " + usuarioBD.getUsuario(), Alert.AlertType.INFORMATION);
-                // Aquí podrías redirigir a otra ventana si lo deseas
+                if (usuarioBD.getRol().equals(rolSeleccionado)) {
+
+                    // Si todo es correcto:
+                    lbId.setText("ID: " + usuarioBD.getId_usuario());
+                    mostrarAlerta("Acceso Correcto", "¡Bienvenido " + usuarioBD.getUsuario() + "! Ingresando como " + rolSeleccionado, Alert.AlertType.INFORMATION);
+
+
+
+                } else {
+                    mostrarAlerta("Error de Rol", "El rol seleccionado no corresponde a este usuario.", Alert.AlertType.ERROR);
+                }
             } else {
-                mostrarAlerta("Login fallido", "Mensaje Incorrecto: Contraseña fallida", Alert.AlertType.ERROR);
+                mostrarAlerta("Login Fallido", "Usuario o Contraseña incorrectos.", Alert.AlertType.ERROR);
             }
         } else {
-            mostrarAlerta("Login fallido", "Mensaje Incorrecto: Usuario no encontrado", Alert.AlertType.ERROR);
+            mostrarAlerta("Login Fallido", "El usuario no existe.", Alert.AlertType.ERROR);
         }
     }
 

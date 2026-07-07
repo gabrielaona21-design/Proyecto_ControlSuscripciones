@@ -6,7 +6,6 @@ public class UsuarioDAO {
     private Conexion conexion = new Conexion();
 
     public boolean registrar(Usuario user) {
-        // id_usuario no se incluye porque es AUTO_INCREMENT en MySQL
         String sql = "INSERT INTO usuarios (usuario, correo, password, rol) VALUES (?, ?, ?, ?)";
         try (Connection conn = conexion.conectarMySQL();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -36,7 +35,7 @@ public class UsuarioDAO {
                 u.setId_usuario(rs.getInt("id_usuario"));
                 u.setUsuario(rs.getString("usuario"));
                 u.setCorreo(rs.getString("correo"));
-                u.setPassword(rs.getString("password")); // Hash de la BD
+                u.setPassword(rs.getString("password"));
                 u.setRol(rs.getString("rol"));
                 return u;
             }

@@ -16,7 +16,7 @@ public class Usuario {
         this.rol = rol;
     }
 
-    // Getters y Setters
+
     public int getId_usuario() { return id_usuario; }
     public void setId_usuario(int id_usuario) { this.id_usuario = id_usuario; }
     public String getUsuario() { return usuario; }
