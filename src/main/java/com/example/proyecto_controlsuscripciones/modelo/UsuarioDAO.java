@@ -6,13 +6,14 @@ public class UsuarioDAO {
     private Conexion conexion = new Conexion();
 
     public boolean registrar(Usuario user) {
+        // id_usuario no se incluye porque es AUTO_INCREMENT en MySQL
         String sql = "INSERT INTO usuarios (usuario, correo, password, rol) VALUES (?, ?, ?, ?)";
         try (Connection conn = conexion.conectarMySQL();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, user.getUsuario());
             ps.setString(2, user.getCorreo());
-            ps.setString(3, user.getPassword());
+            ps.setString(3, user.getPassword()); // Aquí va el Hash
             ps.setString(4, user.getRol());
 
             return ps.executeUpdate() > 0;
@@ -21,7 +22,6 @@ public class UsuarioDAO {
             return false;
         }
     }
-
 
     public Usuario buscarPorNombre(String nombreUsuario) {
         String sql = "SELECT * FROM usuarios WHERE usuario = ?";

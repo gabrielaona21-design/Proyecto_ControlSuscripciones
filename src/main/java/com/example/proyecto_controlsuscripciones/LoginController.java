@@ -16,37 +16,34 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Llenamos el combo con las opciones que definiste
+        // Agregamos los 3 roles solicitados
         cmbRol.getItems().addAll("Administrador", "Estándar", "Invitado");
     }
 
     @FXML
     private void registrar() {
-        // 1. Obtener datos de la interfaz
         String userStr = txtUsuario.getText();
         String mailStr = txtCorreo.getText();
         String passStr = txtPassword.getText();
         String rolStr = cmbRol.getValue();
 
+        // Validación de campos vacíos
         if (userStr.isEmpty() || passStr.isEmpty() || rolStr == null) {
-            mostrarAlerta("Error", "Faltan datos obligatorios", Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "Faltan datos obligatorios para el registro", Alert.AlertType.ERROR);
             return;
         }
 
-        // 2. Hashear la contraseña con tu clase Seguridad
+        // 1. Generar HASH de la contraseña
         String passwordHasheada = Seguridad.generarHash(passStr);
 
-        // 3. Crear objeto Usuario y guardarlo
-        Usuario nuevo = new Usuario();
-        nuevo.setUsuario(userStr);
-        nuevo.setCorreo(mailStr);
-        nuevo.setPassword(passwordHasheada);
-        nuevo.setRol(rolStr);
+        // 2. Crear objeto y guardar
+        Usuario nuevo = new Usuario(userStr, mailStr, passwordHasheada, rolStr);
 
         if (usuarioDAO.registrar(nuevo)) {
-            mostrarAlerta("Registro", "Usuario guardado con éxito", Alert.AlertType.INFORMATION);
+            mostrarAlerta("Registro", "¡Usuario guardado con éxito!", Alert.AlertType.INFORMATION);
+            limpiarCampos();
         } else {
-            mostrarAlerta("Error", "No se pudo registrar el usuario", Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "No se pudo registrar el usuario en la base de datos", Alert.AlertType.ERROR);
         }
     }
 
@@ -55,25 +52,36 @@ public class LoginController {
         String userStr = txtUsuario.getText();
         String passStr = txtPassword.getText();
 
-        // 1. Buscar el usuario en la BD
+        if (userStr.isEmpty() || passStr.isEmpty()) {
+            mostrarAlerta("Login", "Por favor ingrese usuario y contraseña", Alert.AlertType.WARNING);
+            return;
+        }
+
+        // 1. Buscar el usuario en la BD por nombre
         Usuario usuarioBD = usuarioDAO.buscarPorNombre(userStr);
 
         if (usuarioBD != null) {
-            // 2. Validar contraseña usando Seguridad.validar (compara plana vs hash)
+            // 2. Comparar la clave ingresada (plana) contra el Hash guardado
             if (Seguridad.validar(passStr, usuarioBD.getPassword())) {
 
-                // Mostrar ID y Rol en la interfaz como prueba
+                // Mostrar datos en la interfaz
                 lbId.setText("ID: " + usuarioBD.getId_usuario());
 
-                mostrarAlerta("Login", "¡Mensaje Correcto!", Alert.AlertType.INFORMATION);
-
-                // Aquí podrías abrir la siguiente ventana
+                mostrarAlerta("Login exitoso", "¡Acceso Correcto! Bienvenido " + usuarioBD.getUsuario(), Alert.AlertType.INFORMATION);
+                // Aquí podrías redirigir a otra ventana si lo deseas
             } else {
-                mostrarAlerta("Login", "Mensaje Incorrecto: Contraseña fallida", Alert.AlertType.ERROR);
+                mostrarAlerta("Login fallido", "Mensaje Incorrecto: Contraseña fallida", Alert.AlertType.ERROR);
             }
         } else {
-            mostrarAlerta("Login", "Mensaje Incorrecto: Usuario no encontrado", Alert.AlertType.ERROR);
+            mostrarAlerta("Login fallido", "Mensaje Incorrecto: Usuario no encontrado", Alert.AlertType.ERROR);
         }
+    }
+
+    private void limpiarCampos() {
+        txtUsuario.clear();
+        txtCorreo.clear();
+        txtPassword.clear();
+        cmbRol.setValue(null);
     }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
