@@ -85,6 +85,7 @@ public class LoginController {
         txtPassword.clear();
         cmbRol.setValue(null);
         lbId.setText("");
+
     }
 
 
