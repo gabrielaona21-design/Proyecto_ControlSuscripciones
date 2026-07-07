@@ -78,12 +78,15 @@ public class LoginController {
         }
     }
 
+    @FXML
     private void limpiarCampos() {
         txtUsuario.clear();
         txtCorreo.clear();
         txtPassword.clear();
         cmbRol.setValue(null);
+        lbId.setText("");
     }
+
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
