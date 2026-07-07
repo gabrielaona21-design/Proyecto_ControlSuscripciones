@@ -27,7 +27,7 @@ public class LoginController {
         String rolStr = cmbRol.getValue();
 
         if (userStr.isEmpty() || passStr.isEmpty() || rolStr == null) {
-            mostrarAlerta("Error", "Faltan datos obligatorios para el registro", Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "Faltan datos para el registro", Alert.AlertType.ERROR);
             return;
         }
 
@@ -38,7 +38,7 @@ public class LoginController {
         Usuario nuevo = new Usuario(userStr, mailStr, passwordHasheada, rolStr);
 
         if (usuarioDAO.registrar(nuevo)) {
-            mostrarAlerta("Registro", "¡Usuario guardado con éxito!", Alert.AlertType.INFORMATION);
+            mostrarAlerta("Registro", "Usuario guardado con éxito", Alert.AlertType.INFORMATION);
             limpiarCampos();
         } else {
             mostrarAlerta("Error", "No se pudo registrar el usuario en la base de datos", Alert.AlertType.ERROR);
@@ -57,20 +57,14 @@ public class LoginController {
             return;
         }
 
-
         Usuario usuarioBD = usuarioDAO.buscarPorNombre(userStr);
-
         if (usuarioBD != null) {
-
             if (Seguridad.validar(passStr, usuarioBD.getPassword())) {
-
 
                 if (usuarioBD.getRol().equals(rolSeleccionado)) {
 
-                    // Si todo es correcto:
                     lbId.setText("ID: " + usuarioBD.getId_usuario());
                     mostrarAlerta("Acceso Correcto", "¡Bienvenido " + usuarioBD.getUsuario() + "! Ingresando como " + rolSeleccionado, Alert.AlertType.INFORMATION);
-
 
 
                 } else {
