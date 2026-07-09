@@ -9,12 +9,10 @@ public class UsuarioDAO {
         String sql = "INSERT INTO usuarios (usuario, correo, password, rol) VALUES (?, ?, ?, ?)";
         try (Connection conn = conexion.conectarMySQL();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setString(1, user.getUsuario());
             ps.setString(2, user.getCorreo());
-            ps.setString(3, user.getPassword()); // Aquí va el Hash
+            ps.setString(3, user.getPassword());
             ps.setString(4, user.getRol());
-
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("Error al registrar: " + e.getMessage());
@@ -22,14 +20,14 @@ public class UsuarioDAO {
         }
     }
 
-    public Usuario buscarPorNombre(String nombreUsuario) {
-        String sql = "SELECT * FROM usuarios WHERE usuario = ?";
+
+    public Usuario buscarPorIdentificador(String iden) {
+        String sql = "SELECT * FROM usuarios WHERE usuario = ? OR correo = ?";
         try (Connection conn = conexion.conectarMySQL();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setString(1, nombreUsuario);
+            ps.setString(1, iden);
+            ps.setString(2, iden);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 Usuario u = new Usuario();
                 u.setId_usuario(rs.getInt("id_usuario"));

@@ -8,59 +8,50 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="600.0" style="-fx-background-color: #FA8072;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto_controlsuscripciones.LoginController">
+<!-- Faltaba cerrar el contenedor principal -->
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="382.0" prefWidth="600.0" style="-fx-background-color: #FA8072;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto_controlsuscripciones.LoginController">
    <children>
-      <TextField fx:id="txtUsuario" layoutX="226.0" layoutY="169.0" />
-      <TextField fx:id="txtCorreo" layoutX="226.0" layoutY="280.0" />
-      <PasswordField fx:id="txtPassword" layoutX="226.0" layoutY="223.0" />
-      <Label layoutX="154.0" layoutY="102.0" prefHeight="17.0" prefWidth="22.0" text="Id:">
+      <!-- Cambiado el prompt para indicar que acepta ambos -->
+      <TextField fx:id="txtCorreo" layoutX="232.0" layoutY="122.0" promptText="Usuario o Correo" />
+      <PasswordField fx:id="txtPassword" layoutX="232.0" layoutY="177.0" />
+      <Label layoutX="111.0" layoutY="173.0" text="Contraseña:">
          <font>
             <Font name="Gloucester MT Extra Condensed" size="28.0" />
          </font>
       </Label>
-      <Label layoutX="126.0" layoutY="164.0" text="Usuario:">
+      <Label layoutX="94.0" layoutY="117.0" text="Correo/Usuario:">
          <font>
             <Font name="Gloucester MT Extra Condensed" size="28.0" />
          </font>
       </Label>
-      <Label layoutX="119.0" layoutY="218.0" text="Contraseña:">
-         <font>
-            <Font name="Gloucester MT Extra Condensed" size="28.0" />
-         </font>
-      </Label>
-      <Label layoutX="132.0" layoutY="280.0" text="Correo:">
-         <font>
-            <Font name="Gloucester MT Extra Condensed" size="28.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbId" layoutX="236.0" layoutY="111.0" />
-      <ComboBox fx:id="cmbRol" layoutX="225.0" layoutY="335.0" prefWidth="150.0" />
-      <Label layoutX="145.0" layoutY="333.0" text="Rol:">
+      <ComboBox fx:id="cmbRol" layoutX="231.0" layoutY="224.0" prefWidth="150.0" />
+      <Label layoutX="144.0" layoutY="223.0" text="Rol:">
          <font>
             <Font name="Gloucester MT Extra Condensed" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnIniciar" layoutX="141.0" layoutY="400.0" mnemonicParsing="false" onAction="#login" text="Iniciar Sesión" textFill="#c74332">
+      <Button fx:id="btnIniciar" layoutX="68.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" text="Iniciar Sesión" textFill="#c74332">
          <font>
             <Font name="Gloucester MT Extra Condensed" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="btnRegistrar" layoutX="329.0" layoutY="400.0" mnemonicParsing="false" onAction="#registrar" text="Registrar Nuevo" textFill="#a43d3d">
+      <!-- Este botón ahora llama al método registrar que cambia de ventana -->
+      <Button fx:id="btnRegistrar" layoutX="236.0" layoutY="286.0" mnemonicParsing="false" onAction="#registrar" text="Registrar Nuevo" textFill="#a43d3d">
          <font>
             <Font name="Gloucester MT Extra Condensed" size="24.0" />
          </font>
       </Button>
-      <Label layoutX="159.0" layoutY="20.0" text="Login-Control de suscripciones">
+      <Label layoutX="123.0" layoutY="22.0" text="Login-Control de suscripciones">
          <font>
             <Font name="Gloucester MT Extra Condensed" size="41.0" />
          </font>
       </Label>
-      <Button fx:id="btnLimpiar" layoutX="460.0"
-              layoutY="99.0" mnemonicParsing="false"
-              text="Limpiar" textFill="#9e2424" onAction="#limpiarCampos">
+      <Button fx:id="btnLimpiar" layoutX="441.0" layoutY="289.0"
+              mnemonicParsing="false" text="Limpiar" textFill="#ae1919" onAction="#limpiarCampos">
          <font>
             <Font name="Gloucester MT Extra Condensed" size="24.0" />
          </font>
-      </Button>
-   </children>
+      </Button> <!-- Faltaba cerrar esta etiqueta -->
+   </children> <!-- Faltaba cerrar el contenedor de hijos -->
 </Pane>
