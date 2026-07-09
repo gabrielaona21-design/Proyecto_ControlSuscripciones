@@ -12,9 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="719.0"
-      xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto_controlsuscripciones.SuscripcionesController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto_controlsuscripciones.SuscripcionesController">
    <children>
       <Label layoutX="208.0" layoutY="35.0" text="CONTROL DE SUSCRIPCIONES">
          <font>
@@ -83,7 +81,7 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
       </RadioButton>
-      <TableView layoutX="25.0" layoutY="261.0" prefHeight="317.0" prefWidth="670.0">
+      <TableView fx:id="tblSuscripciones" layoutX="25.0" layoutY="261.0" prefHeight="317.0" prefWidth="750.0">
         <columns>
           <TableColumn fx:id="colID" prefWidth="47.999996185302734" text="ID" />
           <TableColumn fx:id="colNombre" prefWidth="103.19998168945312" text="Nombre" />
@@ -93,34 +91,40 @@
             <TableColumn fx:id="colFechaInicio" prefWidth="92.0" text="Fecha Inicio" />
             <TableColumn fx:id="colFechaRenovacion" prefWidth="116.79998779296875" text="Fecha Renovación" />
             <TableColumn fx:id="colEstado" prefWidth="78.39990234375" text="Estado" />
+            <TableColumn fx:id="colIdUsuario" prefWidth="75.0" text="ID Cliente" />
         </columns>
       </TableView>
-      <Button fx:id="btnBuscar" layoutX="272.0" layoutY="86.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="61.0" text="Buscar">
+      <Button fx:id="btnBuscar" layoutX="272.0" layoutY="86.0" mnemonicParsing="false" onAction="#buscar" prefHeight="21.0" prefWidth="61.0" text="Buscar">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnMostrar" layoutX="31.0" layoutY="222.0" mnemonicParsing="false" text="Mostrar">
+      <Button fx:id="btnMostrar" layoutX="31.0" layoutY="222.0" mnemonicParsing="false" onAction="#mostrar" text="Mostrar">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnEliminar" layoutX="333.0" layoutY="222.0" mnemonicParsing="false" text="Eliminar">
+      <Button fx:id="btnEliminar" layoutX="333.0" layoutY="222.0" mnemonicParsing="false" onAction="#eliminar" text="Eliminar">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnActualizar" layoutX="170.0" layoutY="222.0" mnemonicParsing="false" text="Actualizar">
+      <Button fx:id="btnActualizar" layoutX="170.0" layoutY="222.0" mnemonicParsing="false" onAction="#modificar" text="Actualizar">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnLimpiar" layoutX="617.0" layoutY="222.0" mnemonicParsing="false" text="Limpiar">
+      <Button fx:id="btnLimpiar" layoutX="617.0" layoutY="222.0" mnemonicParsing="false" onAction="#limpiar" text="Limpiar">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
       <Button fx:id="btnMostrarUsers" layoutX="563.0" layoutY="598.0" mnemonicParsing="false" text="Mostrar Usuarios">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnAgregar" layoutX="484.0" layoutY="222.0" mnemonicParsing="false" onAction="#insertar" text="Añadir">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
