@@ -19,7 +19,7 @@ public class LoginController {
     @FXML
     public void initialize() {
         if(cmbRol != null) {
-            cmbRol.getItems().addAll("Administrador", "Estándar", "Invitado");
+            cmbRol.getItems().addAll("Administrador", "Cliente", "Invitado");
         }
     }
 

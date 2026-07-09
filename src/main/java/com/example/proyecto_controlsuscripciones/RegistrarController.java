@@ -18,7 +18,7 @@ public class RegistrarController {
 
     @FXML
     public void initialize() {
-        cmbRol.getItems().addAll("Estándar", "Invitado");
+        cmbRol.getItems().addAll("Cliente", "Invitado");
     }
 
     @FXML
