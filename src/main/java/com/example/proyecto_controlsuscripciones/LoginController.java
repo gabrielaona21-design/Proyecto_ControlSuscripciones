@@ -29,6 +29,33 @@ public class LoginController {
         String pass = txtPassword.getText().trim();
         String rol = cmbRol.getValue();
 
+        // Si es Invitado, entra sin credenciales
+        if ("Invitado".equals(rol)) {
+
+            try {
+
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("crud_suscripciones.fxml"));
+
+                Scene scene = new Scene(loader.load());
+
+
+                loader.<SuscripcionesController>getController()
+                        .setDatosUsuario("Invitado", 0);
+
+                Stage stage = (Stage) txtCorreo.getScene().getWindow();
+                stage.setScene(scene);
+                stage.setTitle("Control de Suscripciones - Invitado");
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return;
+        }
+
+
         if (iden.isEmpty() || pass.isEmpty() || rol == null) {
             mostrarAlerta("Campos vacíos", "Por favor llene todos los campos.", Alert.AlertType.WARNING);
             return;
