@@ -7,4 +7,6 @@ module com.example.proyecto_controlsuscripciones {
 
     opens com.example.proyecto_controlsuscripciones to javafx.fxml;
     exports com.example.proyecto_controlsuscripciones;
+    opens com.example.proyecto_controlsuscripciones.modelo to javafx.base;
+    exports com.example.proyecto_controlsuscripciones.modelo;
 }
