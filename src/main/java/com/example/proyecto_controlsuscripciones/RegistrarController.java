@@ -18,7 +18,7 @@ public class RegistrarController {
 
     @FXML
     public void initialize() {
-        cmbRol.getItems().addAll("Cliente", "Invitado");
+        cmbRol.getItems().addAll("Administrador", "Cliente", "Invitado");
     }
 
     @FXML
@@ -34,10 +34,27 @@ public class RegistrarController {
             return;
         }
 
-
-        if (rol.equalsIgnoreCase("Administrador")) {
-            mostrarAlerta("Acceso Denegado", "No sepermite registrar administradores.", Alert.AlertType.WARNING);
+        // Los invitados no se registran
+        if (rol.equals("Invitado")) {
+            mostrarAlerta("Registro no permitido",
+                    "Los usuarios invitados no requieren registro.",
+                    Alert.AlertType.WARNING);
             return;
+        }
+
+
+        // Validar correo para administradores
+        if (rol.equals("Administrador")) {
+
+            if (!mail.toLowerCase().endsWith("@suscripciones.epn.edu.ec")) {
+
+                mostrarAlerta(
+                        "Correo inválido",
+                        "Solo se pueden registrar administradores con un correo @suscripciones.epn.edu.ec",
+                        Alert.AlertType.ERROR);
+
+                return;
+            }
         }
 
 
@@ -46,11 +63,23 @@ public class RegistrarController {
 
 
         if (usuarioDAO.registrar(nuevo)) {
-            mostrarAlerta("Éxito", "Usuario registrado correctamente como " + rol + ".", Alert.AlertType.INFORMATION);
+
+            mostrarAlerta(
+                    "Éxito",
+                    "Usuario registrado correctamente como " + rol + ".",
+                    Alert.AlertType.INFORMATION);
+
             volverAlLogin();
+
         } else {
-            mostrarAlerta("Error", "No se pudo registrar el usuario. Es posible que el nombre de usuario o correo ya existan.", Alert.AlertType.ERROR);
+
+            mostrarAlerta(
+                    "Error",
+                    "No se pudo registrar el usuario. Es posible que el nombre de usuario o correo ya existan.",
+                    Alert.AlertType.ERROR);
+
         }
+
     }
 
     @FXML
