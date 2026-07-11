@@ -29,7 +29,7 @@ public class LoginController {
         String pass = txtPassword.getText().trim();
         String rol = cmbRol.getValue();
 
-        // Si es Invitado, entra sin credenciales
+        // Si es Invitado entra sin credenciales
         if ("Invitado".equals(rol)) {
 
             try {
@@ -64,14 +64,54 @@ public class LoginController {
         Usuario user = usuarioDAO.buscarPorIdentificador(iden);
 
         if (user != null && Seguridad.validar(pass, user.getPassword())) {
+
             if (user.getRol().equals(rol)) {
-                mostrarAlerta("Éxito", "Bienvenido " + user.getUsuario(), Alert.AlertType.INFORMATION);
+
+//                mostrarAlerta(
+//                        "Éxito",
+//                        "Bienvenido " + user.getUsuario(),
+//                        Alert.AlertType.INFORMATION);
+
+                try {
+
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("crud_suscripciones.fxml"));
+
+                    Scene scene = new Scene(loader.load());
+
+                    SuscripcionesController controlador = loader.getController();
+
+                    controlador.setDatosUsuario(
+                            user.getRol(),
+                            user.getId_usuario()
+                    );
+
+                    Stage stage = (Stage) txtCorreo.getScene().getWindow();
+
+                    stage.setScene(scene);
+                    stage.setTitle("Control de Suscripciones");
+                    stage.show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             } else {
-                mostrarAlerta("Error", "El rol seleccionado no es correcto.", Alert.AlertType.ERROR);
+
+                mostrarAlerta(
+                        "Error",
+                        "El rol seleccionado no es correcto.",
+                        Alert.AlertType.ERROR);
+
             }
+
         } else {
-            mostrarAlerta("Error", "Usuario/Correo o contraseña incorrectos.", Alert.AlertType.ERROR);
+
+            mostrarAlerta(
+                    "Error",
+                    "Usuario/Correo o contraseña incorrectos.",
+                    Alert.AlertType.ERROR);
+
         }
     }
 
