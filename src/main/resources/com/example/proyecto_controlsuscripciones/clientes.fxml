@@ -8,10 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/26"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto_controlsuscripciones.ClientesController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto_controlsuscripciones.ClientesController">
    <children>
       <Label layoutX="232.0" layoutY="25.0" text="CLIENTES">
          <font>
@@ -29,7 +26,7 @@
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnEliminar" layoutX="419.0" layoutY="118.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="96.0" onAction="#eliminar" text="ELIMINAR">
+      <Button fx:id="btnEliminar" layoutX="419.0" layoutY="118.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="26.0" prefWidth="96.0" text="ELIMINAR">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
@@ -47,7 +44,12 @@
             <TableColumn fx:id="colRol" prefWidth="94.39996337890625" text="Rol" />
         </columns>
       </TableView>
-      <Button fx:id="btnMostrar" layoutX="33.0" layoutY="118.0" mnemonicParsing="false"  onAction="#mostrar" text="MOSTRAR">
+      <Button fx:id="btnMostrar" layoutX="33.0" layoutY="118.0" mnemonicParsing="false" onAction="#mostrar" text="MOSTRAR">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSalirClientes" layoutX="249.0" layoutY="380.0" mnemonicParsing="false" onAction="#salir" text="SALIR">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
