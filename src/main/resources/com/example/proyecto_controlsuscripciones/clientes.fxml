@@ -9,7 +9,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/26"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto_controlsuscripciones.ClientesController">
    <children>
       <Label layoutX="232.0" layoutY="25.0" text="CLIENTES">
          <font>
@@ -22,17 +24,17 @@
          </font>
       </Label>
       <TextField fx:id="txtID" layoutX="124.0" layoutY="70.0" />
-      <Button fx:id="btnBuscar" layoutX="273.0" layoutY="70.0" mnemonicParsing="false" text="BUSCAR">
+      <Button fx:id="btnBuscar" layoutX="273.0" layoutY="70.0" mnemonicParsing="false" onAction="#buscar" text="BUSCAR">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnEliminar" layoutX="419.0" layoutY="118.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="96.0" text="ELIMINAR">
+      <Button fx:id="btnEliminar" layoutX="419.0" layoutY="118.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="96.0" onAction="#eliminar" text="ELIMINAR">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnLimpiar" layoutX="433.0" layoutY="82.0" mnemonicParsing="false" text="LIMPIAR">
+      <Button fx:id="btnLimpiar" layoutX="433.0" layoutY="82.0" mnemonicParsing="false" onAction="#limpiar" text="LIMPIAR">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
@@ -45,7 +47,7 @@
             <TableColumn fx:id="colRol" prefWidth="94.39996337890625" text="Rol" />
         </columns>
       </TableView>
-      <Button fx:id="btnMostrar" layoutX="33.0" layoutY="118.0" mnemonicParsing="false" text="MOSTRAR">
+      <Button fx:id="btnMostrar" layoutX="33.0" layoutY="118.0" mnemonicParsing="false"  onAction="#mostrar" text="MOSTRAR">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
