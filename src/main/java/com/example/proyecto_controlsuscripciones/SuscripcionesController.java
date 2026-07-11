@@ -5,9 +5,13 @@ import com.example.proyecto_controlsuscripciones.modelo.Suscripcion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -22,6 +26,17 @@ public class SuscripcionesController {
     @FXML private RadioButton rbActiva;
     @FXML private RadioButton rbSuspendida;
     @FXML private RadioButton rbCancelada;
+
+
+    @FXML private Button btnAgregar;
+    @FXML private Button btnActualizar;
+    @FXML private Button btnEliminar;
+    @FXML private Button btnMostrar;
+    @FXML private Button btnBuscar;
+    @FXML private Button btnLimpiar;
+    @FXML private Button btnMostrarUsers;
+    @FXML private Button btnSalir;
+
     @FXML private TableView<Suscripcion> tblSuscripciones;
     @FXML private TableColumn<Suscripcion,Integer> colID;
     @FXML private TableColumn<Suscripcion,String> colNombre;
@@ -35,6 +50,13 @@ public class SuscripcionesController {
     private ObservableList<Suscripcion> listaSuscripciones;
     private Servicio servicio = new Servicio();
     private ToggleGroup grupoEstado = new ToggleGroup();
+
+
+    // Datos del usuario que inició sesión
+    private String rolUsuario;
+    private int idUsuario;
+
+
 
     @FXML
     public void initialize(){
@@ -101,6 +123,112 @@ public class SuscripcionesController {
                 }
         );
     }
+
+
+
+    public void setDatosUsuario(String rol, int idUsuario) {
+
+        this.rolUsuario = rol;
+        this.idUsuario = idUsuario;
+
+        aplicarPermisos();
+    }
+
+    private void aplicarPermisos() {
+
+        switch (rolUsuario) {
+
+            case "Cliente":
+
+                btnActualizar.setVisible(true);
+                btnEliminar.setVisible(false);
+                btnAgregar.setVisible(true);
+                btnBuscar.setVisible(true);
+                btnMostrar.setVisible(true);
+                btnLimpiar.setVisible(true);
+                btnMostrarUsers.setVisible(false);
+                colIdUsuario.setVisible(false);
+
+                break;
+
+            case "Invitado":
+
+                btnActualizar.setVisible(false);
+                btnEliminar.setVisible(false);
+                btnAgregar.setVisible(false);
+                btnBuscar.setVisible(true);
+                btnMostrar.setVisible(false);
+                btnLimpiar.setVisible(true);
+                btnMostrarUsers.setVisible(false);
+                colIdUsuario.setVisible(false);
+
+                break;
+        }
+
+    }
+
+
+    //mostar los clientes admin
+    @FXML
+    private void abrirClientes() {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("clientes.fxml"));
+
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = new Stage();
+
+            stage.setTitle("Clientes");
+
+            stage.setScene(scene);
+
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //cerrar sesion
+
+    @FXML
+    private void cerrarSesion() {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle("Cerrar sesión");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Está seguro que desea cerrar sesión?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+
+            try {
+
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("login.fxml"));
+
+                Scene scene = new Scene(loader.load());
+
+                Stage stage = (Stage) btnSalir.getScene().getWindow();
+
+                stage.setScene(scene);
+                stage.setTitle("Login");
+
+                stage.show();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
+
+    }
+
 
     @FXML
     public void obtenerRegistrosTabla(){
