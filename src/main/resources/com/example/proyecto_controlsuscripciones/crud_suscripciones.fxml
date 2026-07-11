@@ -119,7 +119,7 @@
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnMostrarUsers" layoutX="563.0" layoutY="598.0" mnemonicParsing="false" text="Mostrar Usuarios">
+      <Button fx:id="btnMostrarUsers" layoutX="563.0" layoutY="598.0" mnemonicParsing="false" onAction="#abrirClientes" text="Mostrar Usuarios">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
@@ -129,7 +129,7 @@
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnSalir" layoutX="30.0" layoutY="598.0" mnemonicParsing="false" text="Cerrar Sesión">
+      <Button fx:id="btnSalir" layoutX="30.0" layoutY="598.0" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
