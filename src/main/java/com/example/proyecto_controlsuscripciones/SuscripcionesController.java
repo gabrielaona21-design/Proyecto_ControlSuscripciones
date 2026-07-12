@@ -85,14 +85,18 @@ public class SuscripcionesController {
                 "Trimestral",
                 "Anual"
         );
+
+        //Consultado <- Método para el Spinner o Precio
         SpinnerValueFactory.DoubleSpinnerValueFactory precio =
                 new SpinnerValueFactory.DoubleSpinnerValueFactory(
                         0,
                         1000,
                         0,
-                        0.5
+                        0.01
                 );
         spPrecio.setValueFactory(precio);
+        //Método para hacer el Spinner Editable
+        spPrecio.setEditable(true);
         rbActiva.setToggleGroup(grupoEstado);
         rbSuspendida.setToggleGroup(grupoEstado);
         rbCancelada.setToggleGroup(grupoEstado);
@@ -122,6 +126,19 @@ public class SuscripcionesController {
                     }
                 }
         );
+
+        //Consultado <- Método para la fecha
+        dpFechaInicio.valueProperty().addListener((obs, oldValue, newValue) -> {
+            calcularFechaRenovacion();
+        });
+
+        cbxPlan.valueProperty().addListener((obs, oldValue, newValue) -> {
+            calcularFechaRenovacion();
+        });
+
+        dpFechaRenovacion.valueProperty().addListener((obs, oldValue, newValue) -> {
+            actualizarEstadoAutomatico();
+        });
     }
 
 
@@ -180,7 +197,7 @@ public class SuscripcionesController {
 
             Stage stage = new Stage();
 
-            stage.setTitle("Clientes");
+            stage.setTitle("Usuarios Activos");
 
             stage.setScene(scene);
 
@@ -380,5 +397,48 @@ public class SuscripcionesController {
     @FXML
     public void limpiar(){
         limpiarCampos();
+    }
+
+    //Métodos para la fecha
+    private void calcularFechaRenovacion() {
+
+        if (dpFechaInicio.getValue() == null || cbxPlan.getValue() == null)
+            return;
+
+        LocalDate fecha = dpFechaInicio.getValue();
+
+        switch (cbxPlan.getValue()) {
+
+            case "Mensual":
+                dpFechaRenovacion.setValue(fecha.plusMonths(1));
+                break;
+
+            case "Trimestral":
+                dpFechaRenovacion.setValue(fecha.plusMonths(3));
+                break;
+
+            case "Anual":
+                dpFechaRenovacion.setValue(fecha.plusYears(1));
+                break;
+        }
+
+        actualizarEstadoAutomatico();
+    }
+
+    private void actualizarEstadoAutomatico() {
+
+        if (dpFechaRenovacion.getValue() == null)
+            return;
+
+        if (dpFechaRenovacion.getValue().isBefore(LocalDate.now())) {
+
+            rbSuspendida.setSelected(true);
+
+        } else {
+
+            rbActiva.setSelected(true);
+
+        }
+
     }
 }

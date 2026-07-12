@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto_controlsuscripciones.ClientesController">
    <children>
-      <Label layoutX="232.0" layoutY="25.0" text="CLIENTES">
+      <Label layoutX="232.0" layoutY="25.0" text="USUARIOS ACTIVOS">
          <font>
             <Font name="Times New Roman Bold" size="19.0" />
          </font>
