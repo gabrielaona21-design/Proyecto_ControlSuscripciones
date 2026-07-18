@@ -12,76 +12,76 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto_controlsuscripciones.SuscripcionesController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="799.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyecto_controlsuscripciones.SuscripcionesController">
    <children>
-      <Label layoutX="208.0" layoutY="35.0" text="CONTROL DE SUSCRIPCIONES">
+      <Label layoutX="228.0" layoutY="33.0" style="-fx-text-fill: #2C3E50; -fx-font-weight: bold; -fx-font-size: 20;" text="CONTROL DE SUSCRIPCIONES" textFill="#4e9eb7">
          <font>
             <Font name="Times New Roman Bold" size="19.0" />
          </font>
       </Label>
-      <Label layoutX="90.0" layoutY="89.0" text="ID:">
+      <Label layoutX="90.0" layoutY="89.0" style="fx-text-fill: #2C3E50; -fx-font-family: System;" text="ID:" textFill="#4618cc">
          <font>
-            <Font name="Times New Roman Bold" size="17.0" />
+            <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="49.0" layoutY="118.0" text="Nombre:">
+      <Label layoutX="49.0" layoutY="118.0" style="-fx-text-fill: #2C3E50; -fx-font-family: System;" text="Nombre:" textFill="#2d0981">
          <font>
-            <Font name="Times New Roman Bold" size="17.0" />
+            <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="37.0" layoutY="146.0" text="Categoria:">
+      <Label layoutX="37.0" layoutY="146.0" style="-fx-text-fill: #2C3E50; -fx-font-family: System;" text="Categoria:">
          <font>
-            <Font name="Times New Roman Bold" size="17.0" />
+            <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="75.0" layoutY="177.0" text="Plan:">
+      <Label layoutX="75.0" layoutY="177.0" style="-fx-text-fill: #2C3E50; -fx-font-family: System;" text="Plan:">
          <font>
-            <Font name="Times New Roman Bold" size="17.0" />
+            <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="431.0" layoutY="89.0" text="Precio:">
+      <Label layoutX="431.0" layoutY="89.0" style="-fx-text-fill: #2C3E50; -fx-font-family: System;" text="Precio:">
          <font>
-            <Font name="Times New Roman Bold" size="17.0" />
+            <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="366.0" layoutY="118.0" text="Fecha de Inicio:">
+      <Label layoutX="366.0" layoutY="118.0" style="-fx-text-fill: #2C3E50; -fx-font-family: System;" text="Fecha de Inicio:">
          <font>
-            <Font name="Times New Roman Bold" size="17.0" />
+            <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="322.0" layoutY="146.0" text="Fecha de Renovación:">
+      <Label layoutX="322.0" layoutY="146.0" style="-fx-text-fill: #2C3E50; -fx-font-family: System;" text="Fecha de Renovación:">
          <font>
-            <Font name="Times New Roman Bold" size="17.0" />
+            <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="338.0" layoutY="177.0" text="Estado:">
+      <Label layoutX="339.0" layoutY="174.0" style="-fx-text-fill: #2C3E50; -fx-font-family: System;" text="Estado:">
          <font>
-            <Font name="Times New Roman Bold" size="17.0" />
+            <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="txtID" layoutX="123.0" layoutY="86.0" />
       <TextField fx:id="txtNombre" layoutX="123.0" layoutY="116.0" />
-      <ComboBox fx:id="cbxCategoria" layoutX="122.0" layoutY="143.0" prefWidth="150.0" />
-      <ComboBox fx:id="cbxPlan" layoutX="122.0" layoutY="175.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbxCategoria" layoutX="122.0" layoutY="146.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbxPlan" layoutX="122.0" layoutY="177.0" prefWidth="150.0" />
       <Spinner fx:id="spPrecio" layoutX="490.0" layoutY="86.0" />
       <DatePicker fx:id="dpFechaInicio" layoutX="490.0" layoutY="115.0" />
       <DatePicker fx:id="dpFechaRenovacion" layoutX="490.0" layoutY="143.0" />
-      <RadioButton fx:id="rbActiva" layoutX="400.0" layoutY="177.0" mnemonicParsing="false" text="Activa">
+      <RadioButton fx:id="rbActiva" layoutX="400.0" layoutY="177.0" mnemonicParsing="false" text="Activa" textFill="#151313">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbSuspendida" layoutX="473.0" layoutY="178.0" mnemonicParsing="false" text="Suspendida">
+      <RadioButton fx:id="rbSuspendida" layoutX="473.0" layoutY="178.0" mnemonicParsing="false" text="Suspendida" textFill="#b72929">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbCancelada" layoutX="577.0" layoutY="178.0" mnemonicParsing="false" text="Cancelada">
+      <RadioButton fx:id="rbCancelada" layoutX="577.0" layoutY="178.0" mnemonicParsing="false" text="Cancelada" textFill="#cc2d2d">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
       </RadioButton>
-      <TableView fx:id="tblSuscripciones" layoutX="25.0" layoutY="261.0" prefHeight="317.0" prefWidth="750.0">
+      <TableView fx:id="tblSuscripciones" layoutX="25.0" layoutY="261.0" prefHeight="317.0" prefWidth="750.0" style="-fx-border-color: #DCDDE1; -fx-border-radius: 20;">
         <columns>
           <TableColumn fx:id="colID" prefWidth="47.999996185302734" text="ID" />
           <TableColumn fx:id="colNombre" prefWidth="103.19998168945312" text="Nombre" />
@@ -94,42 +94,42 @@
             <TableColumn fx:id="colIdUsuario" prefWidth="75.0" text="ID Cliente" />
         </columns>
       </TableView>
-      <Button fx:id="btnBuscar" layoutX="272.0" layoutY="86.0" mnemonicParsing="false" onAction="#buscar" prefHeight="21.0" prefWidth="61.0" text="Buscar">
+      <Button fx:id="btnBuscar" layoutX="272.0" layoutY="86.0" mnemonicParsing="false" onAction="#buscar" prefHeight="30.0" prefWidth="73.0" style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-background-radius: 15; -fx-font-weight: bold; -fx-font-family: System;" text="Buscar">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnMostrar" layoutX="31.0" layoutY="222.0" mnemonicParsing="false" onAction="#mostrar" text="Mostrar">
+      <Button fx:id="btnMostrar" layoutX="31.0" layoutY="222.0" mnemonicParsing="false" onAction="#mostrar" style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-background-radius: 15; -fx-font-weight: bold; -fx-font-family: System;" text="Mostrar">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnEliminar" layoutX="333.0" layoutY="222.0" mnemonicParsing="false" onAction="#eliminar" text="Eliminar">
+      <Button fx:id="btnEliminar" layoutX="333.0" layoutY="222.0" mnemonicParsing="false" onAction="#eliminar" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-background-radius: 15; -fx-font-weight: bold; -fx-font-family: System;" text="Eliminar">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnActualizar" layoutX="170.0" layoutY="222.0" mnemonicParsing="false" onAction="#modificar" text="Actualizar">
+      <Button fx:id="btnActualizar" layoutX="170.0" layoutY="222.0" mnemonicParsing="false" onAction="#modificar" style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-background-radius: 15; -fx-font-weight: bold; -fx-font-family: System;" text="Actualizar">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnLimpiar" layoutX="617.0" layoutY="222.0" mnemonicParsing="false" onAction="#limpiar" text="Limpiar">
+      <Button fx:id="btnLimpiar" layoutX="617.0" layoutY="222.0" mnemonicParsing="false" onAction="#limpiar" style="-fx-background-color: #95A5A6; -fx-background-radius: 15; -fx-text-fill: white; -fx-font-family: System;" text="Limpiar">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnMostrarUsers" layoutX="563.0" layoutY="598.0" mnemonicParsing="false" onAction="#abrirClientes" text="Mostrar Usuarios">
+      <Button fx:id="btnMostrarUsers" layoutX="563.0" layoutY="598.0" mnemonicParsing="false" onAction="#abrirClientes" style="-fx-font-weight: bold; -fx-background-radius: 15; -fx-text-fill: white; -fx-background-color: #3498DB; -fx-font-family: System;" text="Mostrar Usuarios">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnAgregar" layoutX="491.0" layoutY="222.0" mnemonicParsing="false" onAction="#insertar" text="Crear">
+      <Button fx:id="btnAgregar" layoutX="491.0" layoutY="222.0" mnemonicParsing="false" onAction="#insertar" style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-background-radius: 15; -fx-font-weight: bold; -fx-font-family: System;" text="Crear">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnSalir" layoutX="30.0" layoutY="598.0" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión">
+      <Button fx:id="btnSalir" layoutX="30.0" layoutY="598.0" mnemonicParsing="false" onAction="#cerrarSesion" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-background-radius: 15; -fx-font-weight: bold; -fx-font-family: System;" text="Cerrar Sesión">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
