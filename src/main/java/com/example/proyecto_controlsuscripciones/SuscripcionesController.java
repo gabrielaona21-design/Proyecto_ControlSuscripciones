@@ -195,7 +195,7 @@ public class SuscripcionesController {
 
             Scene scene = new Scene(loader.load());
 
-            Stage stage = new Stage();
+            Stage stage = (Stage) btnMostrarUsers.getScene().getWindow();
 
             stage.setTitle("Usuarios Activos");
 

@@ -179,18 +179,32 @@ public class ClientesController {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
-            alert.setTitle("Salir");
-            alert.setHeaderText(null);
-            alert.setContentText("¿Está seguro que desea regresar?");
+        alert.setTitle("Salir");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Está seguro que desea regresar?");
 
-            if (alert.showAndWait().get() == ButtonType.OK) {
+        if (alert.showAndWait().get() == ButtonType.OK) {
+
+            try {
+
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("crud_suscripciones.fxml"));
+
+                Scene scene = new Scene(loader.load());
 
                 Stage stage = (Stage) btnSalirClientes.getScene().getWindow();
-                stage.close();
+
+                stage.setScene(scene);
+                stage.setTitle("Control de Suscripciones");
+
+                stage.show();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
 
             }
         }
-
-
+    }
 
 }
