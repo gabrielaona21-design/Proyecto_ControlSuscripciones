@@ -100,7 +100,6 @@ public class SuscripcionesController {
         rbActiva.setToggleGroup(grupoEstado);
         rbSuspendida.setToggleGroup(grupoEstado);
         rbCancelada.setToggleGroup(grupoEstado);
-        obtenerRegistrosTabla();
 
         tblSuscripciones.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> {
@@ -149,6 +148,12 @@ public class SuscripcionesController {
         this.idUsuario = idUsuario;
 
         aplicarPermisos();
+
+        if ("Invitado".equals(rolUsuario)) {
+            listaSuscripciones.clear();
+        } else {
+            obtenerRegistrosTabla();
+        }
     }
 
     private void aplicarPermisos() {

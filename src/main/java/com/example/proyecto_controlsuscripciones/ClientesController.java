@@ -14,41 +14,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ClientesController {
-
-
-    @FXML
-    private TextField txtID;
-
-    @FXML
-    private Button btnBuscar;
-
-    @FXML
-    private Button btnMostrar;
-
-    @FXML
-    private Button btnEliminar;
-
-    @FXML
-    private Button btnLimpiar;
-
-    @FXML
-    private Button btnSalirClientes;
-
-    @FXML
-    private TableView<Usuario> tblClientes;
-
-    @FXML
-    private TableColumn<Usuario,Integer> colID;
-
-    @FXML
-    private TableColumn<Usuario,String> colNombre;
-
-    @FXML
-    private TableColumn<Usuario,String> colCorreo;
-
-    @FXML
-    private TableColumn<Usuario,String> colRol;
-
+    @FXML private TextField txtID;
+    @FXML private Button btnBuscar;
+    @FXML private Button btnMostrar;
+    @FXML private Button btnEliminar;
+    @FXML private Button btnLimpiar;
+    @FXML private Button btnSalirClientes;
+    @FXML private TableView<Usuario> tblClientes;
+    @FXML private TableColumn<Usuario,Integer> colID;
+    @FXML private TableColumn<Usuario,String> colNombre;
+    @FXML private TableColumn<Usuario,String> colCorreo;
+    @FXML private TableColumn<Usuario,String> colRol;
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
 
@@ -59,7 +35,7 @@ public class ClientesController {
         colNombre.setCellValueFactory(new PropertyValueFactory<>("usuario"));
         colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
         colRol.setCellValueFactory(new PropertyValueFactory<>("rol"));
-
+        mostrar();
     }
 
 
