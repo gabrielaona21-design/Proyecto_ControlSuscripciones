@@ -19,67 +19,69 @@ public class RegistrarController {
     @FXML
     public void initialize() {
         cmbRol.getItems().addAll("Administrador", "Cliente", "Invitado");
+
+
+        cmbRol.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if ("Invitado".equals(newValue)) {
+                // Bloqueamos la edición
+                txtUsuario.setDisable(true);
+                txtCorreo.setDisable(true);
+                txtPassword.setDisable(true);
+
+
+                txtUsuario.clear();
+                txtCorreo.clear();
+                txtPassword.clear();
+
+                mostrarAlerta("Registro no permitido",
+                        "Los usuarios invitados no requieren registro. Si deseas entrar como invitado, vuelve al Login.",
+                        Alert.AlertType.WARNING);
+
+
+            } else {
+
+                txtUsuario.setDisable(false);
+                txtCorreo.setDisable(false);
+                txtPassword.setDisable(false);
+            }
+        });
     }
 
     @FXML
     private void registrarUsuario() {
+        String rol = cmbRol.getValue();
+
+
+        if ("Invitado".equals(rol)) {
+            mostrarAlerta("Acción no válida", "No es posible registrar una cuenta de tipo Invitado.", Alert.AlertType.ERROR);
+            return;
+        }
+
         String user = txtUsuario.getText().trim();
         String mail = txtCorreo.getText().trim();
         String pass = txtPassword.getText().trim();
-        String rol = cmbRol.getValue();
-
 
         if (user.isEmpty() || mail.isEmpty() || pass.isEmpty() || rol == null) {
             mostrarAlerta("Error de Validación", "Todos los campos son obligatorios.", Alert.AlertType.ERROR);
             return;
         }
 
-        // Los invitados no se registran
-        if (rol.equals("Invitado")) {
-            mostrarAlerta("Registro no permitido",
-                    "Los usuarios invitados no requieren registro.",
-                    Alert.AlertType.WARNING);
-            return;
-        }
-
-
-        // Validar correo para administradores
-        if (rol.equals("Administrador")) {
-
+        if ("Administrador".equals(rol)) {
             if (!mail.toLowerCase().endsWith("@suscripciones.epn.edu.ec")) {
-
-                mostrarAlerta(
-                        "Correo inválido",
-                        "Solo se pueden registrar administradores con un correo @suscripciones.epn.edu.ec",
-                        Alert.AlertType.ERROR);
-
+                mostrarAlerta("Correo inválido", "Solo administradores con correo @suscripciones.epn.edu.ec", Alert.AlertType.ERROR);
                 return;
             }
         }
 
-
         String passHash = Seguridad.generarHash(pass);
         Usuario nuevo = new Usuario(user, mail, passHash, rol);
 
-
         if (usuarioDAO.registrar(nuevo)) {
-
-            mostrarAlerta(
-                    "Éxito",
-                    "Usuario registrado correctamente como " + rol + ".",
-                    Alert.AlertType.INFORMATION);
-
+            mostrarAlerta("Éxito", "Usuario registrado correctamente.", Alert.AlertType.INFORMATION);
             volverAlLogin();
-
         } else {
-
-            mostrarAlerta(
-                    "Error",
-                    "No se pudo registrar el usuario. Es posible que el nombre de usuario o correo ya existan.",
-                    Alert.AlertType.ERROR);
-
+            mostrarAlerta("Error", "No se pudo registrar. El nombre o correo ya podrían estar en uso.", Alert.AlertType.ERROR);
         }
-
     }
 
     @FXML
@@ -87,14 +89,11 @@ public class RegistrarController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
             Scene scene = new Scene(loader.load());
-
-            // Obtener el Stage actual desde cualquier componente (ej. txtUsuario)
-            Stage stage = (Stage) txtUsuario.getScene().getWindow();
+            Stage stage = (Stage) cmbRol.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Login - Control de Suscripciones");
             stage.show();
         } catch (IOException e) {
-            mostrarAlerta("Error de Sistema", "No se pudo cargar la vista de login.", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
     }
@@ -105,6 +104,9 @@ public class RegistrarController {
         txtCorreo.clear();
         txtPassword.clear();
         cmbRol.setValue(null);
+        txtUsuario.setDisable(false);
+        txtCorreo.setDisable(false);
+        txtPassword.setDisable(false);
     }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {

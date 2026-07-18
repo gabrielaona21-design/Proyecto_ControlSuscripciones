@@ -20,6 +20,23 @@ public class LoginController {
     public void initialize() {
         if(cmbRol != null) {
             cmbRol.getItems().addAll("Administrador", "Cliente", "Invitado");
+
+
+            cmbRol.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if ("Invitado".equals(newValue)) {
+                    txtCorreo.setDisable(true);
+                    txtPassword.setDisable(true);
+                    txtCorreo.clear();
+                    txtPassword.clear();
+
+                    mostrarAlerta("Modo Invitado",
+                            "Has seleccionado el modo Invitado. No se requieren credenciales. Presiona 'Ingresar'.",
+                            Alert.AlertType.INFORMATION);
+                } else {
+                    txtCorreo.setDisable(false);
+                    txtPassword.setDisable(false);
+                }
+            });
         }
     }
 
@@ -29,32 +46,22 @@ public class LoginController {
         String pass = txtPassword.getText().trim();
         String rol = cmbRol.getValue();
 
-        // Si es Invitado entra sin credenciales
         if ("Invitado".equals(rol)) {
-
             try {
-
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("crud_suscripciones.fxml"));
-
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("crud_suscripciones.fxml"));
                 Scene scene = new Scene(loader.load());
+                SuscripcionesController controlador = loader.getController();
+                controlador.setDatosUsuario("Invitado", 0);
 
-
-                loader.<SuscripcionesController>getController()
-                        .setDatosUsuario("Invitado", 0);
-
-                Stage stage = (Stage) txtCorreo.getScene().getWindow();
+                Stage stage = (Stage) cmbRol.getScene().getWindow();
                 stage.setScene(scene);
                 stage.setTitle("Control de Suscripciones - Invitado");
                 stage.show();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             return;
         }
-
 
         if (iden.isEmpty() || pass.isEmpty() || rol == null) {
             mostrarAlerta("Campos vacíos", "Por favor llene todos los campos.", Alert.AlertType.WARNING);
@@ -62,56 +69,26 @@ public class LoginController {
         }
 
         Usuario user = usuarioDAO.buscarPorIdentificador(iden);
-
         if (user != null && Seguridad.validar(pass, user.getPassword())) {
-
             if (user.getRol().equals(rol)) {
-
-//                mostrarAlerta(
-//                        "Éxito",
-//                        "Bienvenido " + user.getUsuario(),
-//                        Alert.AlertType.INFORMATION);
-
                 try {
-
-                    FXMLLoader loader = new FXMLLoader(
-                            getClass().getResource("crud_suscripciones.fxml"));
-
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("crud_suscripciones.fxml"));
                     Scene scene = new Scene(loader.load());
-
                     SuscripcionesController controlador = loader.getController();
-
-                    controlador.setDatosUsuario(
-                            user.getRol(),
-                            user.getId_usuario()
-                    );
+                    controlador.setDatosUsuario(user.getRol(), user.getId_usuario());
 
                     Stage stage = (Stage) txtCorreo.getScene().getWindow();
-
                     stage.setScene(scene);
                     stage.setTitle("Control de Suscripciones");
                     stage.show();
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             } else {
-
-                mostrarAlerta(
-                        "Error",
-                        "El rol seleccionado no es correcto.",
-                        Alert.AlertType.ERROR);
-
+                mostrarAlerta("Error", "El rol seleccionado no es correcto.", Alert.AlertType.ERROR);
             }
-
         } else {
-
-            mostrarAlerta(
-                    "Error",
-                    "Usuario/Correo o contraseña incorrectos.",
-                    Alert.AlertType.ERROR);
-
+            mostrarAlerta("Error", "Usuario/Correo o contraseña incorrectos.", Alert.AlertType.ERROR);
         }
     }
 
@@ -133,6 +110,8 @@ public class LoginController {
         txtCorreo.clear();
         txtPassword.clear();
         cmbRol.setValue(null);
+        txtCorreo.setDisable(false);
+        txtPassword.setDisable(false);
     }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
