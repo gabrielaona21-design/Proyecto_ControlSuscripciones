@@ -23,7 +23,6 @@ public class RegistrarController {
 
         cmbRol.valueProperty().addListener((observable, oldValue, newValue) -> {
             if ("Invitado".equals(newValue)) {
-                // Bloqueamos la edición
                 txtUsuario.setDisable(true);
                 txtCorreo.setDisable(true);
                 txtPassword.setDisable(true);
