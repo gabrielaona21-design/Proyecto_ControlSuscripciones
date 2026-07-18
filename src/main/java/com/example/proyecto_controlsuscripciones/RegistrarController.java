@@ -65,6 +65,24 @@ public class RegistrarController {
             return;
         }
 
+        // contraseña
+        if (pass.length() < 8) {
+            mostrarAlerta(
+                    "Contraseña inválida",
+                    "La contraseña debe tener mínimo 8 caracteres.",
+                    Alert.AlertType.WARNING);
+            return;
+        }
+
+//  Cliente
+        if (rol.equals("Cliente") && !mail.contains("@")) {
+            mostrarAlerta(
+                    "Correo inválido",
+                    "El correo debe ser una direccion de correo valida.",
+                    Alert.AlertType.WARNING);
+            return;
+        }
+
         if ("Administrador".equals(rol)) {
             if (!mail.toLowerCase().endsWith("@suscripciones.epn.edu.ec")) {
                 mostrarAlerta("Correo inválido", "Solo administradores con correo @suscripciones.epn.edu.ec", Alert.AlertType.ERROR);
