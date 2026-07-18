@@ -8,4 +8,5 @@ public interface CrudSuscripcion {
     void insertar(Suscripcion s);
     void actualizar(Suscripcion s);
     void eliminar(int id);
+    Map<Integer,Suscripcion> seleccionarPorUsuario(int idUsuario);
 }

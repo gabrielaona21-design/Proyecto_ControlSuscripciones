@@ -122,6 +122,35 @@ public class ImplCrud implements CrudSuscripcion {
         }
     }
 
+     @Override
+     public Map<Integer, Suscripcion> seleccionarPorUsuario(int idUsuario) {
+         Map<Integer, Suscripcion> mapa = new LinkedHashMap<>();
+         try {
+             Connection conn = this.conectarMySQL();
+             PreparedStatement stmt = conn.prepareStatement(SELECT_BY_USUARIO);
+             stmt.setInt(1, idUsuario);
+             ResultSet rs = stmt.executeQuery();
+
+             while (rs.next()) {
+                 Suscripcion suscripcion = new Suscripcion(
+                         rs.getInt("id_suscripcion"),
+                         rs.getString("nombre"),
+                         rs.getString("categoria"),
+                         rs.getString("plan"),
+                         rs.getDouble("precio"),
+                         rs.getDate("fecha_inicio").toLocalDate(),
+                         rs.getDate("fecha_renovacion").toLocalDate(),
+                         rs.getString("estado"),
+                         rs.getInt("id_usuario")
+                 );
+                 mapa.put(suscripcion.getIdSuscripcion(), suscripcion);
+             }
+         } catch (SQLException e) {
+             System.out.println(e.getMessage());
+         }
+         return mapa;
+     }
+
 
     private final String SELECT = "SELECT * FROM suscripciones";
     private final String SELECT_BY_ID = "SELECT * FROM suscripciones WHERE id_suscripcion=?";
@@ -129,5 +158,5 @@ public class ImplCrud implements CrudSuscripcion {
     private final String UPDATE = "UPDATE suscripciones SET nombre=?, categoria=?, plan=?, precio=?, fecha_inicio=?, fecha_renovacion=?, estado=? WHERE id_suscripcion=?";
     private final String DELETE = "DELETE FROM suscripciones WHERE id_suscripcion=?";
     //Método Unicamente para el Usuario **PENDIENTE**
-    //private final String SELECT_BY_USUARIO = "SELECT * FROM suscripciones WHERE id_usuario=?";
+    private final String SELECT_BY_USUARIO = "SELECT * FROM suscripciones WHERE id_usuario=?";
 }

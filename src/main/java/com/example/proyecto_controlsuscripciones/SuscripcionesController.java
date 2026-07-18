@@ -250,8 +250,12 @@ public class SuscripcionesController {
     @FXML
     public void obtenerRegistrosTabla(){
         listaSuscripciones.clear();
-        Map<Integer,Suscripcion> mapa =
-                servicio.seleccionarTodo();
+        Map<Integer,Suscripcion> mapa;
+        if (rolUsuario != null && (rolUsuario.equals("Cliente") || rolUsuario.equals("Invitado"))) {
+            mapa = servicio.seleccionarPorUsuario(idUsuario);
+        } else {
+            mapa = servicio.seleccionarTodo();
+        }
         for(Map.Entry<Integer,Suscripcion> entry : mapa.entrySet()){
             listaSuscripciones.add(entry.getValue());
         }
@@ -271,66 +275,66 @@ public class SuscripcionesController {
         rbCancelada.setSelected(false);
     }
 
-    @FXML
-    public void insertar(){
-        try{
-            String estado="";
-            if(rbActiva.isSelected())
-                estado="Activa";
-            else if(rbSuspendida.isSelected())
-                estado="Suspendida";
-            else
-                estado="Cancelada";
-            Suscripcion suscripcion = new Suscripcion(
-                    txtNombre.getText(),
-                    cbxCategoria.getValue(),
-                    cbxPlan.getValue(),
-                    spPrecio.getValue(),
-                    dpFechaInicio.getValue(),
-                    dpFechaRenovacion.getValue(),
-                    estado,1
-            );
-            servicio.insertar(suscripcion);
-            obtenerRegistrosTabla();
-        }catch(Exception e){
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error");
-            alerta.setHeaderText("Datos inválidos");
-            alerta.setContentText("Verifique la información ingresada.");
-            alerta.showAndWait();
-        }
-    }
+     @FXML
+     public void insertar(){
+         try{
+             String estado="";
+             if(rbActiva.isSelected())
+                 estado="Activa";
+             else if(rbSuspendida.isSelected())
+                 estado="Suspendida";
+             else
+                 estado="Cancelada";
+             Suscripcion suscripcion = new Suscripcion(
+                     txtNombre.getText(),
+                     cbxCategoria.getValue(),
+                     cbxPlan.getValue(),
+                     spPrecio.getValue(),
+                     dpFechaInicio.getValue(),
+                     dpFechaRenovacion.getValue(),
+                     estado, this.idUsuario
+             );
+             servicio.insertar(suscripcion);
+             obtenerRegistrosTabla();
+         }catch(Exception e){
+             Alert alerta = new Alert(Alert.AlertType.ERROR);
+             alerta.setTitle("Error");
+             alerta.setHeaderText("Datos inválidos");
+             alerta.setContentText("Verifique la información ingresada.");
+             alerta.showAndWait();
+         }
+     }
 
-    @FXML
-    public void modificar(){
-        try{
-            String estado="";
-            if(rbActiva.isSelected())
-                estado="Activa";
-            else if(rbSuspendida.isSelected())
-                estado="Suspendida";
-            else
-                estado="Cancelada";
-            Suscripcion suscripcion = new Suscripcion(
-                    Integer.parseInt(txtID.getText()),
-                    txtNombre.getText(),
-                    cbxCategoria.getValue(),
-                    cbxPlan.getValue(),
-                    spPrecio.getValue(),
-                    dpFechaInicio.getValue(),
-                    dpFechaRenovacion.getValue(),
-                    estado, 1
-            );
-            servicio.actualizar(suscripcion);
-            obtenerRegistrosTabla();
-        }catch(Exception e){
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error");
-            alerta.setHeaderText("No se pudo actualizar");
-            alerta.setContentText("Seleccione una suscripción válida.");
-            alerta.showAndWait();
-        }
-    }
+     @FXML
+     public void modificar(){
+         try{
+             String estado="";
+             if(rbActiva.isSelected())
+                 estado="Activa";
+             else if(rbSuspendida.isSelected())
+                 estado="Suspendida";
+             else
+                 estado="Cancelada";
+             Suscripcion suscripcion = new Suscripcion(
+                     Integer.parseInt(txtID.getText()),
+                     txtNombre.getText(),
+                     cbxCategoria.getValue(),
+                     cbxPlan.getValue(),
+                     spPrecio.getValue(),
+                     dpFechaInicio.getValue(),
+                     dpFechaRenovacion.getValue(),
+                     estado, this.idUsuario
+             );
+             servicio.actualizar(suscripcion);
+             obtenerRegistrosTabla();
+         }catch(Exception e){
+             Alert alerta = new Alert(Alert.AlertType.ERROR);
+             alerta.setTitle("Error");
+             alerta.setHeaderText("No se pudo actualizar");
+             alerta.setContentText("Seleccione una suscripción válida.");
+             alerta.showAndWait();
+         }
+     }
 
     @FXML
     public void eliminar(){

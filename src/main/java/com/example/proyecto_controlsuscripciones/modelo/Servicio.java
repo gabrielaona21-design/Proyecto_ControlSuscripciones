@@ -31,4 +31,7 @@ public class Servicio {
             }
         });
     }
+     public Map<Integer, Suscripcion> seleccionarPorUsuario(int idUsuario) {
+         return implementacion.seleccionarPorUsuario(idUsuario);
+     }
 }
