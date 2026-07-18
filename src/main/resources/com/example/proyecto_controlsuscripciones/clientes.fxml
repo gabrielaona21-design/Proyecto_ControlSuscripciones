@@ -31,7 +31,7 @@
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnLimpiar" layoutX="429.0" layoutY="78.0" mnemonicParsing="false" onAction="#limpiar" style="-fx-background-color: #95A5A6; -fx-background-radius: 15; -fx-font-family: System;" text="LIMPIAR">
+      <Button fx:id="btnLimpiar" layoutX="429.0" layoutY="78.0" mnemonicParsing="false" onAction="#limpiar" style="-fx-background-color: #95A5A6; -fx-background-radius: 15; -fx-font-family: System; -fx-text-fill: white;" text="LIMPIAR">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
